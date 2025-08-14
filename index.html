@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Ball Characters</title>
+    
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bitcount:wght@100..900&family=Jacquard+12&display=swap');
+</style>
+    <style>
+
+        body {
+            
+  font-family: "Jacquard 12", system-ui;
+  font-weight: 400;
+  font-style: normal;
+
+
+            background: linear-gradient(270deg, #8c1e1e, #9c6718, #909022, #338b1e, #1e8c8c, #2c1589, #5f1293, #971e67, #841212);
+            background-size: 1800% 1800%;
+            animation: rainbowBG 20s linear infinite;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        @keyframes rainbowBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 20px;
+            justify-content: center;
+    
+            min-height: 100vh;
+        }
+        .card {
+            
+            border-radius: 8px;
+            width: 400px;
+            padding: 16px;
+            
+            text-align: center;
+             background: linear-gradient(270deg, #ff0000, #ff9900, #ffff00, #33ff00, #00ffff, #3300ff, #9900ff, #ff0099, #ff0000);
+            background-size: 1800% 1800%;
+            animation: rainbowBG 20s linear infinite;
+        }
+        .card img {
+            width: 400px;
+            height: 400px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            
+            transition: transform 0.5s ease;
+        }
+        .card img:hover {
+            transform: scale(1.24);
+            transition: transform 0.5s ease;
+        }
+       .rainbow-text {
+        background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00, #33ff00, #00ffff, #3300ff, #9900ff, #ff0099, #ff0000);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: rainbowBG 8s linear infinite;
+        text-align: center;
+        font-size: 100px;
+    }
+    .card h3 {
+            background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00, #33ff00, #00ffff, #3300ff, #9900ff, #ff0099, #ff0000);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: rainbowBG 8s linear infinite;
+            font-size: 68px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .card p {
+            font-size: 34px;
+            font-weight: 600;
+            margin: 5px 0;
+                background: linear-gradient(90deg, #ff0000, #ff9900, #ffff00, #33ff00, #00ffff, #3300ff, #9900ff, #ff0099, #ff0000);
+        background-size: 200% 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: rainbowBG 8s linear infinite;
+        }
+        @media (max-width: 768px) {
+            .cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 90%;
+            }
+            .card img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="rainbow-text">Dragon Ball Characters</h1>
+    <div class="cards" id="cards"></div>
+    <script>
+        async function fetchCharacters() {
+            const res = await fetch('https://dragonball-api.com/api/characters?limit=57');
+            const data = await res.json();
+            const cardsContainer = document.getElementById('cards');
+            data.items.forEach(character => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${character.image}" alt="${character.name}">
+                    <h3>${character.name}</h3>
+                    <p>Race: ${character.race}</p>
+                    <p>affiliation: ${character.affiliation}</p>
+                    <p>Gender: ${character.gender}
+                    
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+        fetchCharacters();
+    </script>
+</body>
+</html>
